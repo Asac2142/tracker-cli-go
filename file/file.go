@@ -3,14 +3,21 @@ package file
 
 import (
 	"encoding/json"
-	"github/Asac2142/cli-tracker/task"
 	"os"
 )
 
 const filename = "tasks.json"
 
+// File - file generic struct. T generic.
+type File[T any] struct{}
+
+// New - instantiates a File struct.
+func New[T any]() *File[T] {
+	return &File[T]{}
+}
+
 // Write - writes tasks into a JSON file
-func Write(data []task.Task) error {
+func (f *File[T]) Write(data *[]T) error {
 	asJSON, err := json.Marshal(data)
 	if err != nil {
 		return err
@@ -25,7 +32,7 @@ func Write(data []task.Task) error {
 }
 
 // Read - reads tasks json file
-func Read() ([]task.Task, error) {
+func (f *File[T]) Read() ([]T, error) {
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -38,12 +45,12 @@ func Read() ([]task.Task, error) {
 		return nil, err
 	}
 
-	var tasks []task.Task
+	var data []T
 
-	err = json.Unmarshal(bytes, &tasks)
+	err = json.Unmarshal(bytes, &data)
 	if err != nil {
 		return nil, err
 	}
 
-	return tasks, nil
+	return data, nil
 }

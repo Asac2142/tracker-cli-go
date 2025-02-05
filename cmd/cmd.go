@@ -23,39 +23,38 @@ const (
 // HandleTrackerCLI - Handles user's input
 func HandleTrackerCLI(f *file.File[task.TContent]) error {
 	task := task.NewTask(f)
+	args := os.Args[1:]
 
-	for {
-		args := os.Args[1:]
-
-		if len(args) == 0 {
-			return errors.New("Invalid input")
-		}
-
-		switch args[0] {
-		case add:
-			err := addTask(&args, task)
-			printError(err)
-		case update:
-			err := updateTask(&args, task)
-			printError(err)
-		case deleteTask:
-			err := removeTask(&args, task)
-			printError(err)
-		case markInProgress:
-			err := updateStatus(&args, markInProgress, task)
-			printError(err)
-		case markDone:
-			err := updateStatus(&args, markDone, task)
-			printError(err)
-		case list:
-			err := listTasks(&args, task)
-			printError(err)
-		case exit:
-			return nil
-		default:
-			return errors.New("Invalid task command")
-		}
+	if len(args) == 0 {
+		return errors.New("Invalid input")
 	}
+
+	switch args[0] {
+	case add:
+		err := addTask(&args, task)
+		printError(err)
+	case update:
+		err := updateTask(&args, task)
+		printError(err)
+	case deleteTask:
+		err := removeTask(&args, task)
+		printError(err)
+	case markInProgress:
+		err := updateStatus(&args, markInProgress, task)
+		printError(err)
+	case markDone:
+		err := updateStatus(&args, markDone, task)
+		printError(err)
+	case list:
+		err := listTasks(&args, task)
+		printError(err)
+	case exit:
+		return nil
+	default:
+		return errors.New("Invalid task command")
+	}
+
+	return nil
 }
 
 func addTask(args *[]string, t *task.Task) error {

@@ -69,7 +69,7 @@ func addTask(args *[]string, t *task.Task) error {
 		return err
 	}
 
-	fmt.Printf("Task added successfully (ID: %d)", added.ID)
+	fmt.Printf("Task added successfully (ID: %d)\n", added.ID)
 
 	return nil
 }

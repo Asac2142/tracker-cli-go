@@ -3,6 +3,7 @@ package file
 
 import (
 	"encoding/json"
+	"errors"
 	"os"
 )
 
@@ -34,8 +35,17 @@ func (f *File[T]) Write(data *[]T) error {
 // Read - reads tasks json file
 func (f *File[T]) Read() ([]T, error) {
 	jsonFile, err := os.Open(filename)
+
 	if err != nil {
-		return nil, err
+		if errors.Is(err, os.ErrNotExist) {
+			jsonFile, err = os.Create(filename)
+
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, err
+		}
 	}
 
 	defer jsonFile.Close()
@@ -43,6 +53,10 @@ func (f *File[T]) Read() ([]T, error) {
 	bytes, err := os.ReadFile(jsonFile.Name())
 	if err != nil {
 		return nil, err
+	}
+
+	if len(bytes) == 0 {
+		return make([]T, 0), nil
 	}
 
 	var data []T

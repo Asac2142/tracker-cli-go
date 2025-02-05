@@ -33,17 +33,23 @@ func HandleTrackerCLI(f *file.File[task.TContent]) error {
 
 		switch args[0] {
 		case add:
-			addTask(&args, task)
+			err := addTask(&args, task)
+			printError(err)
 		case update:
-			updateTask(&args, task)
+			err := updateTask(&args, task)
+			printError(err)
 		case deleteTask:
-			removeTask(&args, task)
+			err := removeTask(&args, task)
+			printError(err)
 		case markInProgress:
-			updateStatus(&args, markInProgress, task)
+			err := updateStatus(&args, markInProgress, task)
+			printError(err)
 		case markDone:
-			updateStatus(&args, markDone, task)
+			err := updateStatus(&args, markDone, task)
+			printError(err)
 		case list:
-			listTasks(&args, task)
+			err := listTasks(&args, task)
+			printError(err)
 		case exit:
 			return nil
 		default:
@@ -154,9 +160,19 @@ func handlePrintTasks(s *task.Status, t *task.Task) error {
 		return err
 	}
 
+	if len(*tasks) == 0 {
+		return errors.New("no tasks registered yet")
+	}
+
 	for _, v := range *tasks {
 		fmt.Printf("ID: %d\tDESCRIPTION: %s\tSTATUS: %s\tCREATED AT: %v\tUPDATED AT: %v\n", v.ID, v.Description, v.Status, v.CreatedAt, v.UpdatedAt)
 	}
 
 	return nil
+}
+
+func printError(err error) {
+	if err != nil {
+		fmt.Printf("Error: %v", err)
+	}
 }

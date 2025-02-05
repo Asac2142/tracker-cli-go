@@ -130,6 +130,7 @@ func updateStatus(args *[]string, status string, t *task.Task) error {
 func listTasks(args *[]string, t *task.Task) error {
 	if len(*args) == 1 {
 		handlePrintTasks(nil, t)
+		return nil
 	}
 
 	if len(*args) != 2 {
@@ -164,7 +165,7 @@ func handlePrintTasks(s *task.Status, t *task.Task) error {
 	}
 
 	for _, v := range *tasks {
-		fmt.Printf("ID: %d\tDESCRIPTION: %s\tSTATUS: %s\tCREATED AT: %v\tUPDATED AT: %v\n", v.ID, v.Description, v.Status, v.CreatedAt, v.UpdatedAt)
+		fmt.Printf("ID: %-12d DESCRIPTION: %-8s STATUS: %-12s CREATED AT: %-50v UPDATED AT: %-50v\n", v.ID, v.Description, v.Status, v.CreatedAt, v.UpdatedAt)
 	}
 
 	return nil

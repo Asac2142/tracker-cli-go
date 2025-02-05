@@ -36,7 +36,6 @@ func NewTask(f *file.File[TContent]) *Task {
 	return &Task{file: f}
 }
 
-// NewContent - creates a new task.
 func newContent(description string) *TContent {
 	return &TContent{
 		Description: description,
@@ -71,21 +70,6 @@ func (t *Task) Add(description string) (*TContent, error) {
 	return tc, t.file.Write(&fileContent)
 }
 
-// SearchByID - searches a task by its ID.
-func (t *Task) SearchByID(id int) (*TContent, error) {
-	tc, err := t.file.Read()
-	if err != nil {
-		return nil, err
-	}
-
-	index := slices.IndexFunc(tc, func(task TContent) bool { return task.ID == id })
-	if index == -1 {
-		return nil, errors.New("task with id provided not found")
-	}
-
-	return &tc[index], nil
-}
-
 // Update - update a task.
 func (t *Task) Update(id int, dsc string) error {
 	tasks, err := t.file.Read()
@@ -106,7 +90,7 @@ func (t *Task) Update(id int, dsc string) error {
 	return t.file.Write(&tasks)
 }
 
-// Delete - deletes a task based on id
+// Delete - deletes a task based on id.
 func (t *Task) Delete(id int) error {
 	tasks, err := t.file.Read()
 	if err != nil {

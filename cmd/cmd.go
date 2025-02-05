@@ -20,12 +20,13 @@ const (
 )
 
 // HandleTrackerCLI - Handles user's input
-func HandleTrackerCLI(f *file.File[task.TContent]) error {
+func HandleTrackerCLI(f *file.File[task.TContent]) {
 	task := task.NewTask(f)
 	args := os.Args[1:]
 
 	if len(args) == 0 {
-		return errors.New("Invalid input")
+		err := errors.New("Invalid input")
+		printError(err)
 	}
 
 	switch args[0] {
@@ -48,10 +49,9 @@ func HandleTrackerCLI(f *file.File[task.TContent]) error {
 		err := listTasks(&args, task)
 		printError(err)
 	default:
-		return errors.New("Invalid task command")
+		err := errors.New("Invalid task command")
+		printError(err)
 	}
-
-	return nil
 }
 
 func addTask(args *[]string, t *task.Task) error {

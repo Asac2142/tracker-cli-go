@@ -9,9 +9,5 @@ import (
 
 func main() {
 	f := file.New[task.TContent]()
-	err := cmd.HandleTrackerCLI(f)
-
-	if err != nil {
-		panic(err)
-	}
+	cmd.HandleTrackerCLI(f)
 }

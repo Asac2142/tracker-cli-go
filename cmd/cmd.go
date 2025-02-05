@@ -165,7 +165,7 @@ func handlePrintTasks(s *task.Status, t *task.Task) error {
 	}
 
 	for _, v := range *tasks {
-		fmt.Printf("ID: %-12d DESCRIPTION: %-8s STATUS: %-12s CREATED AT: %-50v UPDATED AT: %-50v\n", v.ID, v.Description, v.Status, v.CreatedAt, v.UpdatedAt)
+		fmt.Printf("ID: %-12d DESCRIPTION: %-50s STATUS: %-12s CREATED AT: %-50v UPDATED AT: %-50v\n", v.ID, v.Description, v.Status, v.CreatedAt, v.UpdatedAt)
 	}
 
 	return nil

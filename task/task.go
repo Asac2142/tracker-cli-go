@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github/Asac2142/cli-tracker/file"
 	"slices"
+	"strings"
 	"time"
 )
 
@@ -63,7 +64,7 @@ func (t *Task) Add(description string) (*TContent, error) {
 	}
 
 	id := maxID + 1
-	tc := newContent(description)
+	tc := newContent(strings.TrimSpace(description))
 	tc.ID = id
 	fileContent = append(fileContent, *tc)
 
@@ -83,7 +84,7 @@ func (t *Task) Update(id int, dsc string) error {
 	}
 
 	tc := &tasks[i]
-	tc.Description = dsc
+	tc.Description = strings.TrimSpace(dsc)
 	tc.UpdatedAt = time.Now()
 	tasks[i] = *tc
 

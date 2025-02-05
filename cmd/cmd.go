@@ -90,7 +90,7 @@ func updateTask(args *[]string, t *task.Task) error {
 }
 
 func removeTask(args *[]string, t *task.Task) error {
-	if len(*args) != 1 {
+	if len(*args) != 2 {
 		return errors.New("delete task requires an id")
 	}
 
@@ -173,6 +173,6 @@ func handlePrintTasks(s *task.Status, t *task.Task) error {
 
 func printError(err error) {
 	if err != nil {
-		fmt.Printf("Error: %v", err)
+		fmt.Printf("Issue found: %v\n", err)
 	}
 }

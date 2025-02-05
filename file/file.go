@@ -32,7 +32,7 @@ func (f *File[T]) Write(data *[]T) error {
 	return nil
 }
 
-// Read - reads tasks json file
+// Read - reads tasks from json file
 func (f *File[T]) Read() ([]T, error) {
 	jsonFile, err := os.Open(filename)
 

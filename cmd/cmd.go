@@ -17,7 +17,6 @@ const (
 	markInProgress string = "mark-in-progress"
 	markDone       string = "mark-done"
 	list           string = "list"
-	exit           string = "exit"
 )
 
 // HandleTrackerCLI - Handles user's input
@@ -48,8 +47,6 @@ func HandleTrackerCLI(f *file.File[task.TContent]) error {
 	case list:
 		err := listTasks(&args, task)
 		printError(err)
-	case exit:
-		return nil
 	default:
 		return errors.New("Invalid task command")
 	}

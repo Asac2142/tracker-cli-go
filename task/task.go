@@ -48,12 +48,22 @@ func newContent(description string) *TContent {
 
 // Add - adds a new task to json file.
 func (t *Task) Add(description string) (*TContent, error) {
+	var maxID int
 	fileContent, err := t.file.Read()
 	if err != nil {
 		return nil, err
 	}
 
-	id := len(fileContent) + 1
+	if len(fileContent) != 0 {
+		maxID = slices.MaxFunc(fileContent, func(tc1, tc2 TContent) int {
+			if tc1.ID > tc2.ID {
+				return tc1.ID
+			}
+			return tc2.ID
+		}).ID
+	}
+
+	id := maxID + 1
 	tc := newContent(description)
 	tc.ID = id
 	fileContent = append(fileContent, *tc)

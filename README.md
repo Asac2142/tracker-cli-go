@@ -1,7 +1,8 @@
-<p align="center"><strong>Task Tracker CLI</strong></p>
+<h1 align="center"><strong>Task Tracker CLI</strong></h1>
 
 ## Description
 Task tracker is a project used to track and manage your tasks written in Go.
+https://roadmap.sh/projects/task-tracker
 
 ## Usage 🛠
 - `git clone https://github.com/Asac2142/tracker-cli-go.git`

@@ -7,6 +7,8 @@ import (
 	"github/Asac2142/cli-tracker/task"
 )
 
+// run project locally as "go run main.go"
+
 func main() {
 	f := file.New[task.TContent]()
 	cmd.HandleTrackerCLI(f)
